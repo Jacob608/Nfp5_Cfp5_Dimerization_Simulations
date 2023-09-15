@@ -50,7 +50,7 @@ $selCfp5 moveby [format "%.3f %.3f %.3f" $shiftx $shifty $shiftz]
 
 $selCfp5 writepdb cfp5_updated_xyz.pdb
 
-topology top_all36_prot_C2L_TIP3.rtf
+topology top_all36_prot.rtf
 topology ../run_simulation/toppar_water_ions_namd.str
 
 alias residue HIS HSE
