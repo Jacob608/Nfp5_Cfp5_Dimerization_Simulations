@@ -1,6 +1,7 @@
 package require psfgen
 package require solvate
 package require autoionize
+package require mutator
 resetpsf
 
 mol new nfp5.pdb
@@ -69,5 +70,7 @@ writepsf nfp5_cfp5.psf
 solvate nfp5_cfp5.psf nfp5_cfp5.pdb -t 12 -o nfp5_cfp5_solvated
 
 autoionize -psf nfp5_cfp5_solvated.psf -pdb nfp5_cfp5_solvated.pdb -sc 0.15 -cation SOD -anion CLA
+
+# This line will be replaced by mutator plugin commands
 
 exit
