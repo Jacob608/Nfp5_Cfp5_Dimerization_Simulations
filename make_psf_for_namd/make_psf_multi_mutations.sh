@@ -9,6 +9,7 @@
 
 module purge all
 module load python/anaconda3.6
+module load vmd
 
 # Organize files into an output directory.
 out_dir=test
@@ -36,16 +37,14 @@ for element in "${names[@]}"; do
 	sim_dir=$out_dir/$element
 	mkdir $sim_dir
 	mutant_commands=$(cat "${element}_mutator_commands.txt") # String output from generate_mutator_commands.py
-	replace_string="# This line will be replaced by mutator plugin commands"
-	sed "s/$replace_string/$mutant_commands/g" < psfgen.tcl > psfgen_mutate.tcl
-	
-	
-	mv psfgen_mutate.tcl ${element}_mutator_commands.txt $sim_dir 
+	# replace_string='This line will be replaced by mutator plugin commands'
+	# sed "s/${replace_string}/${mutant_commands}" < psfgen.tcl > psfgen_mutate.tcl
+	cat psfgen.tcl ${element}_mutator_commands.txt > psfgen_mutate.tcl
+	# Generate psf files.
+	vmd -dispdev text -e psfgen_mutate.tcl >> psfgen_mutate.log
+	mv psfgen_mutate.tcl mutant_${element}* nfp5_cfp5* cfp5_updated_xyz.pdb ionized* psfgen_mutate.log ${element}_mutator_commands.txt $sim_dir 
 	echo "$element"
 done
-
-
-
 
 # # Generate psf files.
 # module load vmd

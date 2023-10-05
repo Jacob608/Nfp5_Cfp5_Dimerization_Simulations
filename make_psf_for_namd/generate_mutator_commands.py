@@ -46,6 +46,7 @@ for ind in df.index:
             # Convert single letter amino acid code to three letter amino acid code for VMD Mutator Plugin.
             mut_resname = ''.join([amino_acid_codes[aa] for aa in mut_seq[a]])
             mut_file.write(f"mutator -psf ionized.psf -pdb ionized.pdb -o mutant_{name} -ressegname U -resid {a+1} -mut {mut_resname} \n")
+    mut_file.write('exit')
     mut_file.close()
 names_file.close()
 

@@ -12,12 +12,12 @@ module load python/anaconda3.6
 
 # Generate solvated and ionized PSF in VMD.
 module load vmd
-vmd -dispdev text -e psfgen.tcl >> psfgen.log
+vmd -dispdev text -e psfgen_nomutation.tcl >> psfgen_nomutation.log
 
 out_dir=psfgen_no_mutation_out
 if [ ! -d "$out_dir" ];then
 	mkdir $out_dir
-    mv nfp5_cfp5* cfp5_updated_xyz.pdb psfgen.log ionized* $out_dir
+    mv nfp5_cfp5* cfp5_updated_xyz.pdb psfgen_nomutation.log ionized* $out_dir
     cp view.vmd $out_dir
 else
 	echo "Directory ${out_dir} already exists."
