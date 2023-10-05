@@ -14,7 +14,7 @@ module load python/anaconda3.6
 module load vmd
 vmd -dispdev text -e psfgen.tcl >> psfgen.log
 
-out_dir=psfgen_out
+out_dir=psfgen_no_mutation_out
 if [ ! -d "$out_dir" ];then
 	mkdir $out_dir
     mv nfp5_cfp5* cfp5_updated_xyz.pdb psfgen.log ionized* $out_dir
