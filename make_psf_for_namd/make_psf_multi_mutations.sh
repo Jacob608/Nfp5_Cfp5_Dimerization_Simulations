@@ -12,7 +12,7 @@ module load python/anaconda3.6
 module load vmd
 
 # Organize files into an output directory.
-out_dir=test
+out_dir=mutation_simulations
 if [ ! -d "$out_dir" ];then
 	mkdir $out_dir
 else
@@ -42,15 +42,7 @@ for element in "${names[@]}"; do
 	cat psfgen.tcl ${element}_mutator_commands.txt > psfgen_mutate.tcl
 	# Generate psf files.
 	vmd -dispdev text -e psfgen_mutate.tcl >> psfgen_mutate.log
-	mv psfgen_mutate.tcl mutant_${element}* nfp5_cfp5* cfp5_updated_xyz.pdb ionized* psfgen_mutate.log ${element}_mutator_commands.txt $sim_dir 
+	cp view.vmd $sim_dir
+	mv psfgen_mutate.tcl nfp5_cfp5* cfp5_updated_xyz.pdb ionized* psfgen_mutate.log ${element}_mutator_commands.txt $sim_dir 
 	echo "$element"
 done
-
-# # Generate psf files.
-# module load vmd
-# vmd -dispdev text -e psfgen_mutate.tcl >> psfgen.log
-
-# # Organize files.
-
-# # mv nfp5_cfp5* cfp5_updated_xyz.pdb psfgen.log ionized* $out_dir
-# # cp view.vmd $out_dir
