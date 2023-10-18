@@ -6,6 +6,7 @@
 # L. Martinez, Feb 26, 2008. (leandromartinez98@gmail.com)
 #
 # Run with tclsh maxmin_new.tcl
+# See https://www.youtube.com/watch?v=IArpsQsZ95U at 9:25
 
 puts "-------------------------------------------------------"
 puts " Gets maximum and minimum coordinates from a PDB file. "
