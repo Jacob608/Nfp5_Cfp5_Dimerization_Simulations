@@ -20,6 +20,13 @@ vmd -dispdev text -e combine_nfp5_cfp5.tcl >> combine_nfp5_cfp5.log # Use VMD to
 vmd -dispdev text -e solvate_ionize.tcl >> solvate_ionize.log # Use VMD to add solvent and ions.
 cp view.vmd $out_dir/no_mutation # Copy view.vmd into output directory.
 mv nfp5_cfp5* ionized* solvate_ionize.log combine_nfp5_cfp5.log $out_dir/no_mutation # Organize files into the output directory.
+cp ../run_simulation/* $out_dir/no_mutation
+cd $out_dir/no_mutation
+tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
+pbc_namd_commands=$(cat "pbc_namd_commands.txt") # String output from generate_mutator_commands.py
+echo $pbc_namd_commands
+sed -i "s/-pbc commands here-/${pbc_namd_commands}/g" run.namd # Add cellBasisVector commands to run.namd
+cd ../..
 
 #----- Make simulations with one protein mutated.
 source activate /projects/p31412/Mfp_Brushes/envs/fga_mfp # Activate a conda environment with Python version 3.6.0
@@ -52,6 +59,7 @@ for element in "${names[@]}"; do
 	cd $sim_dir
 	tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
 	pbc_namd_commands=$(cat "pbc_namd_commands.txt") # String output from generate_mutator_commands.py
-	sed -i 's/-pbc commands here-/${pbc_namd_commands}/g' run_template.namd > run.namd # Add cellBasisVector commands to run.namd
+	echo $pbc_namd_commands
+	sed -i "s/-pbc commands here-/${pbc_namd_commands}/g" run.namd # Add cellBasisVector commands to run.namd
 	cd ../..
 done

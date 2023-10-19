@@ -1,0 +1,106 @@
+# ---------input----
+
+coordinates             ionized.pdb 				# Required keyword
+structure               ionized.psf 				# Required keyword
+parameters 		par_all36m_prot_NBFIX.prm 		# Required keyword
+parameters 		TYR.prm
+parameters 		ARG.prm
+parameters 		toppar_water_ions.str
+parameters 		par_all36_cgenff_NBFIX.prm
+paratypecharmm          on 					# Indicates that parameter files is in CHARMM format NOT X-PLOR format
+#bincoordinates         minimized.restart.coor 			# Binary restart file containing initial position coordinate data
+#binvelocities         	minimized.restart.vel 			# Binary file containing initial velocities for all atoms in the simulation
+
+# ---------output-----
+
+set output              output ; # Set variable output as 'output.'
+
+outputname              $output 				# Required keyword indicating output filename
+dcdfile                 ${output}.dcd 				# The binary DCD position coordinate trajectory filename
+xstFile                 ${output}.xst 				# The eXtended System Trajectory file contains a record of periodic cell parameters and extended system variables during the simulation
+dcdfreq                 25000 					# The number of time steps between the writing of position coordinates to the trajectory file.
+xstFreq                 25000 					# Controls how often the extended system configuration will be appended to the XST file.
+binaryoutput            yes 					# Activates the use of binary output files. When yes, the final output files will be written in binary rather than PDB format.
+binaryrestart           yes 					# Activates the use of binary restart files. When yes, restart files will be written in binary rather than PDB format.
+restartfreq             500 					# The number of time steps between the generation of restart files.
+restartname 		restart
+
+set thermOut 		1000
+outputEnergies 		$thermOut
+outputPressure 		$thermOut
+
+
+# --------Basic dynamics------
+exclude                 scaled1-4 				# Appropriate non bonded exclusions for CHARMM
+1-4scaling              1 					# Appropriate 1-4 scaling value for CHARMM
+COMmotion               no 					# Prohibits center of mass motion of the entire system.
+dielectric              1.0 					# Sets the dielectric constant to 1.0
+
+# -------Simulation space partitioning---
+switching               on 					# Switching functions are applied to non-bonded interactions within the cutoff distance.
+switchdist              9 					# Switch distance beyond which LJ potential is changed to cutoff smoothly.
+cutoff                  10 					# Distance at which non bonded interactions are smoothed to 0.
+pairlistdist            11 					# highly recommended to be specified with a value at least one greater than cutoff
+
+# -------Multiple time stepping---
+nonbondedFreq 		2 					# Specifies how often short-range non bonded interactions should be calculated.
+fullElectFrequency 	4 					# The number of time steps between each full electrostatics evaluation.
+firsttimestep           0 					# Number of the first timestep.
+timestep                1 					# Timestep size to use when integrating each step of the simulation.
+stepspercycle   	4 					# Number of time steps in each cycle, which represents the number of time steps between atom reassignments.
+
+rigidBonds 		water 					# Constrain bond lengths of water.
+useSettle 		on 					# Use the non-iterative SETTLE algorithm rather than SHAKE.
+
+# ------Temperature control---
+set temperature         300 		;			# Set variable temperature to 300.
+temperature             $temperature ;  				# Set initial temperature
+
+# ------Langevin Dynamics-----
+langevin                on;            				# Specifies whether or not Langevin dynamics are active.
+langevinDamping         1;              			# Langevin coupling/damping coefficient (gamma) of 1/ps.
+langevinTemp            $temperature;   			# Temperature to which atoms affected by Langevin dynamics will be adjusted.
+langevinHydrogen 	no 					# Do NOT apply Langevin dynamics to hydrogen atoms.
+
+# ===============================================
+
+PME 			on 					# Use Particle-Mesh Ewald for electrostatic calculation.
+PMEGridSpacing 		1.0 					# The grid spacing used to define the mesh for PME summation.
+
+# doesnt work with just pme
+
+useGroupPressure yes # Calculate pressure using either the atomic viral and kinetic energy or a hydrogen-group based pseudo-molecular viral and kinetic energy.
+
+# with grouppressure, works better, holes still there
+
+# ------Langevin Pressure Control --------------
+#LangevinPiston control is used by NAMD to simulate NPT ensemble.
+LangevinPiston   	on 					# Activates Langevin piston pressure control.
+LangevinPistonTarget 	1.02 					# Set target pressure to atmospheric pressure at sea level (bar).
+LangevinPistonPeriod 	200 					# Barostat oscillation time scale for Langevin piston method.
+LangevinPistonDecay  	100 					# Barostat damping time scale for Langevin piston method.
+LangevinPistonTemp  	$temperature 				# Barostat noise temperature for Langevin piston method.
+
+# with langevin piston, works!!! But slower.
+
+# ===============================================
+
+# Periodic Boundary conditions
+-pbc commands here-
+
+wrapWater           on              ;				# wrap water to central cell
+wrapAll             on              ;				# wrap other molecules too
+wrapNearest         off
+
+# ---------Scripting
+minimize            100          ;				# Performs potential energy minimization for specified number of timesteps.
+#minTinyStep 	    1.0e-6 					# 1.0e-6 is the default value for minTinyStep.
+#minBabyStep 	    1.0e-2 					# 1.0e-2 is the default value for minBabyStep.
+#minLineGoal 	    1.0e-4 					# 1.0e-4 is the default value for minLineGoal.
+
+reinitvels          $temperature  ;				# since minimization zeros velocities
+
+#run 1000; 							# run simulation for 1000 fs
+run 150000000; 							# run simulation for 15000000 fs (150 ns)
+
+# END
