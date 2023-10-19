@@ -14,18 +14,25 @@ puts " The selection will be defined below: "
 puts " Use 'all' to consider all atoms in each field. "
 puts "-------------------------------------------------------"
 
-puts -nonewline " PDB file: "; flush stdout; gets stdin pdbfile
-puts -nonewline " Segment: "; flush stdout; gets stdin segment
-puts -nonewline " Residue type: "; flush stdout; gets stdin residue
-puts -nonewline " Atom type: "; flush stdout; gets stdin atomtype
-puts -nonewline " Atom index greater than: "; flush stdout; gets stdin firstatom
-puts -nonewline " Atom index less than: "; flush stdout; gets stdin lastatom
-set pdbfile [ string trim $pdbfile ]
-set segment [ string trim $segment ]
-set residue [ string trim $residue ]
-set atomtype [ string trim $atomtype ]
-set firstatom [ string trim $firstatom ] 
-set lastatom [ string trim $lastatom ]
+set pdbfile [ string trim "ionized.pdb" ]
+set segment [ string trim "all" ]
+set residue [ string trim "all" ]
+set atomtype [ string trim "all" ]
+set firstatom [ string trim "all" ]
+set lastatom [ string trim "all" ]
+# To solicit user input for each variable uncomment the twelve lines below and comment out the six lines above.
+# puts -nonewline " PDB file: "; flush stdout; gets stdin pdbfile
+# puts -nonewline " Segment: "; flush stdout; gets stdin segment
+# puts -nonewline " Residue type: "; flush stdout; gets stdin residue
+# puts -nonewline " Atom type: "; flush stdout; gets stdin atomtype
+# puts -nonewline " Atom index greater than: "; flush stdout; gets stdin firstatom
+# puts -nonewline " Atom index less than: "; flush stdout; gets stdin lastatom
+# set pdbfile [ string trim $pdbfile ]
+# set segment [ string trim $segment ]
+# set residue [ string trim $residue ]
+# set atomtype [ string trim $atomtype ]
+# set firstatom [ string trim $firstatom ] 
+# set lastatom [ string trim $lastatom ]
 
 set file [ open $pdbfile r ]
 set file [ read $file ]
@@ -90,3 +97,10 @@ puts "cellBasisVector2 0 [ expr $ymax - $ymin ] 0 "
 puts "cellBasisVector3 0 0 [ expr $zmax - $zmin ] "
 puts "cellOrigin [ expr ($xmax + $xmin)/2 ] [ expr ($ymax + $ymin)/2 ] [ expr ($zmax + $zmin)/2 ] "
 puts "-------------------------------------------------------"
+
+set outfile [open "pbc_namd_commands.txt" w]
+puts $outfile "cellBasisVector1 [ expr $xmax - $xmin ] 0 0 \n"
+puts $outfile "cellBasisVector2 0 [ expr $ymax - $ymin ] 0 \n"
+puts $outfile "cellBasisVector3 0 0 [ expr $zmax - $zmin ] \n"
+puts $outfile "cellOrigin [ expr ($xmax + $xmin)/2 ] [ expr ($ymax + $ymin)/2 ] [ expr ($zmax + $zmin)/2 ] "
+exit

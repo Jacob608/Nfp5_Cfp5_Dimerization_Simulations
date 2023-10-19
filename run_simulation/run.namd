@@ -86,10 +86,7 @@ LangevinPistonTemp  	$temperature 				# Barostat noise temperature for Langevin 
 # ===============================================
 
 # Periodic Boundary conditions
-cellBasisVector1 67.054 0 0 
-cellBasisVector2 0 72.801 0 
-cellBasisVector3 0 0 64.593 
-cellOrigin 26.295 42.5725 -61.1025
+-pbc commands here-
 
 wrapWater           on              ;				# wrap water to central cell
 wrapAll             on              ;				# wrap other molecules too

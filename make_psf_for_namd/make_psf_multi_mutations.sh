@@ -47,4 +47,8 @@ for element in "${names[@]}"; do
 
 	cp view.vmd $sim_dir # Copy view.vmd into output directory.
 	mv solvate_ionize.log combine_nfp5_cfp5.log nfp5_cfp5* cfp5_updated_xyz.pdb ionized* ${element}* $sim_dir # Organize files into the output directory.
+
+	cp ../run_simulation/* $sim_dir # Copy all files in directory run_simulation into output directory.
+	tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
+	# Add cellBasisVector commands to run.namd
 done
