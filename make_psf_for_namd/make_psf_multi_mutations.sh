@@ -36,13 +36,18 @@ done < "names.txt"
 for element in "${names[@]}"; do
 	sim_dir=$out_dir/$element
 	mkdir $sim_dir
+
+	vmd -dispdev text -e combine_nfp5_cfp5.tcl >> combine_nfp5_cfp5.log
+
 	mutant_commands=$(cat "${element}_mutator_commands.txt") # String output from generate_mutator_commands.py
 	# replace_string='This line will be replaced by mutator plugin commands'
 	# sed "s/${replace_string}/${mutant_commands}" < psfgen.tcl > psfgen_mutate.tcl
-	cat psfgen.tcl ${element}_mutator_commands.txt > psfgen_mutate.tcl
+	cat mutate.tcl ${element}_mutator_commands.txt > ${element}_mutate.tcl
 	# Generate psf files.
-	vmd -dispdev text -e psfgen_mutate.tcl >> psfgen_mutate.log
+	vmd -dispdev text -e ${element}_mutate.tcl >> ${element}_mutate.log
+	vmd -dispdev text -e solvate_ionize.tcl >> solvate_ionize.log
+
 	cp view.vmd $sim_dir
-	mv psfgen_mutate.tcl nfp5_cfp5* cfp5_updated_xyz.pdb ionized* psfgen_mutate.log ${element}_mutator_commands.txt $sim_dir 
+	mv solvate_ionize.log combine_nfp5_cfp5.log nfp5_cfp5* cfp5_updated_xyz.pdb ionized* ${element}* $sim_dir 
 	echo "$element"
 done
