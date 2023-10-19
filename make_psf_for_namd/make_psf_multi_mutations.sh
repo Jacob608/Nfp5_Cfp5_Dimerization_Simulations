@@ -1,12 +1,4 @@
 #!/bin/bash
-#SBATCH --job-name="make nfp5_cfp5 PSF"
-#SBATCH -A p31412
-#SBATCH -p short    ## partition
-#SBATCH -N 1  ## number of nodes
-#SBATCH -n 1  ## number of cores
-#SBATCH --output=R-%x.%j.out
-#SBATCH -t 00:05:00
-
 module purge all
 module load python/anaconda3.6
 module load vmd
@@ -20,6 +12,14 @@ else
 	echo "Exiting to avoid directory overwrite."
 	exit
 fi
+
+# Generate a simulation with no mutations
+
+mkdir $out_dir/no_mutation
+vmd -dispdev text -e combine_nfp5_cfp5.tcl >> combine_nfp5_cfp5.log
+vmd -dispdev text -e solvate_ionize.tcl >> solvate_ionize.log
+cp view.vmd $out_dir/no_mutation
+mv nfp5_cfp5* ionized* solvate_ionize.log combine_nfp5_cfp5.log $out_dir/no_mutation
 
 # Append necessary mutations to psfgen.tcl
 source activate /projects/p31412/Mfp_Brushes/envs/fga_mfp
