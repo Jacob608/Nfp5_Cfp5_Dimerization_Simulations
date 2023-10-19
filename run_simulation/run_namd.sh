@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name="job-name"
+#SBATCH --job-name="jobname"
 #SBATCH -A p31412
 #SBATCH -p long    ## partition
 #SBATCH -N 1  ## number of nodes

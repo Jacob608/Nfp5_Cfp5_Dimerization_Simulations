@@ -57,5 +57,6 @@ for element in "${names[@]}"; do
 	tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
 	pbc_namd_commands=$(cat pbc_namd_commands.txt) # String output from generate_mutator_commands.py
 	sed -i "s/-pbc commands here-/$pbc_namd_commands/g" run.namd # Add cellBasisVector commands to run.namd
+	sed -i "s/jobname/$element/g" run_namd.sh # Change job name to unique identifier in run_namd.sh
 	cd ../..
 done
