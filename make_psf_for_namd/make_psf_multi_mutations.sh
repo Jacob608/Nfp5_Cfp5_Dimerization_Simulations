@@ -38,7 +38,7 @@ for element in "${names[@]}"; do
 
 	vmd -dispdev text -e combine_nfp5_cfp5.tcl >> combine_nfp5_cfp5.log # Use VMD to position the two proteins next to each other in the same pdb/psf.
 
-	mutant_commands=$(cat "${element}_mutator_commands.txt") # String output from generate_mutator_commands.py
+	# mutant_commands=$(cat "${element}_mutator_commands.txt") # String output from generate_mutator_commands.py
 
 	cat mutate.tcl ${element}_mutator_commands.txt > ${element}_mutate.tcl # Concatenate the VMD Mutator Plugin commands to the end of ${element}_mutator_commands.txt and save the output file as ${element}_mutate.tcl
 
@@ -49,6 +49,9 @@ for element in "${names[@]}"; do
 	mv solvate_ionize.log combine_nfp5_cfp5.log nfp5_cfp5* cfp5_updated_xyz.pdb ionized* ${element}* $sim_dir # Organize files into the output directory.
 
 	cp ../run_simulation/* $sim_dir # Copy all files in directory run_simulation into output directory.
+	cd $sim_dir
 	tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
-	# Add cellBasisVector commands to run.namd
+	pbc_namd_commands=$(cat "pbc_namd_commands.txt") # String output from generate_mutator_commands.py
+	sed -i 's/-pbc commands here-/${pbc_namd_commands}/g' run_template.namd > run.namd # Add cellBasisVector commands to run.namd
+	cd ../..
 done
