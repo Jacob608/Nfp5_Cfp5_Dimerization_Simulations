@@ -99,8 +99,13 @@ puts "cellOrigin [ expr ($xmax + $xmin)/2 ] [ expr ($ymax + $ymin)/2 ] [ expr ($
 puts "-------------------------------------------------------"
 
 set outfile [open "pbc_namd_commands.txt" w]
-puts $outfile "cellBasisVector1 [ expr $xmax - $xmin ] 0 0 "
-puts $outfile "cellBasisVector2 0 [ expr $ymax - $ymin ] 0 "
-puts $outfile "cellBasisVector3 0 0 [ expr $zmax - $zmin ] "
-puts $outfile "cellOrigin [ expr ($xmax + $xmin)/2 ] [ expr ($ymax + $ymin)/2 ] [ expr ($zmax + $zmin)/2 ] "
+set output "cellBasisVector1 [ expr $xmax - $xmin ] 0 0 "
+append output {\n}
+append output "cellBasisVector2 0 [ expr $ymax - $ymin ] 0 "
+append output {\n}
+append output "cellBasisVector3 0 0 [ expr $zmax - $zmin ] "
+append output {\n}
+append output "cellOrigin [ expr ($xmax + $xmin)/2 ] [ expr ($ymax + $ymin)/2 ] [ expr ($zmax + $zmin)/2 ] "
+puts $outfile "$output"
+
 exit
