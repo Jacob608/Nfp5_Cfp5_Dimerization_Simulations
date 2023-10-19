@@ -22,7 +22,7 @@ dcdfreq                 25000 					# The number of time steps between the writin
 xstFreq                 25000 					# Controls how often the extended system configuration will be appended to the XST file.
 binaryoutput            yes 					# Activates the use of binary output files. When yes, the final output files will be written in binary rather than PDB format.
 binaryrestart           yes 					# Activates the use of binary restart files. When yes, restart files will be written in binary rather than PDB format.
-restartfreq             50 					# The number of time steps between the generation of restart files.
+restartfreq             500 					# The number of time steps between the generation of restart files.
 restartname 		restart
 
 set thermOut 		1000
@@ -86,10 +86,10 @@ LangevinPistonTemp  	$temperature 				# Barostat noise temperature for Langevin 
 # ===============================================
 
 # Periodic Boundary conditions
-cellBasisVector1 84.507 0 0 
-cellBasisVector2 0 78.41 0 
-cellBasisVector3 0 0 73.353 
-cellOrigin -12.3405 -25.373 20.4095
+cellBasisVector1 67.054 0 0 
+cellBasisVector2 0 72.801 0 
+cellBasisVector3 0 0 64.593 
+cellOrigin 26.295 42.5725 -61.1025
 
 wrapWater           on              ;				# wrap water to central cell
 wrapAll             on              ;				# wrap other molecules too
@@ -104,6 +104,6 @@ minimize            100          ;				# Performs potential energy minimization f
 reinitvels          $temperature  ;				# since minimization zeros velocities
 
 #run 1000; 							# run simulation for 1000 fs
-run 50000000; 							# run simulation for 5000000 fs (50 ns)
+run 150000000; 							# run simulation for 15000000 fs (150 ns)
 
 # END
