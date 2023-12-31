@@ -18,7 +18,7 @@ fi
 mkdir $out_dir/no_mutation # Make a directory to organize output files.
 vmd -dispdev text -e combine_nfp5_cfp5.tcl >> combine_nfp5_cfp5.log # Use VMD to position the two proteins next to each other in the same pdb/psf.
 vmd -dispdev text -e solvate_ionize.tcl >> solvate_ionize.log # Use VMD to add solvent and ions.
-cp view.vmd $out_dir/no_mutation # Copy view.vmd into output directory.
+cp view_traj.vmd $out_dir/no_mutation # Copy view_traj.vmd into output directory.
 mv nfp5_cfp5* ionized* solvate_ionize.log combine_nfp5_cfp5.log $out_dir/no_mutation # Organize files into the output directory.
 cp ../run_simulation/* $out_dir/no_mutation
 cd $out_dir/no_mutation
@@ -36,7 +36,7 @@ names=()
 while IFS= read -r line; do
 	names+=("$line")
 done < "names.txt"
-
+mv names.txt submit_all.sh $out_dir
 # Generate each simulation.
 for element in "${names[@]}"; do
 	sim_dir=$out_dir/$element 
@@ -49,7 +49,7 @@ for element in "${names[@]}"; do
 	vmd -dispdev text -e ${element}_mutate.tcl >> ${element}_mutate.log # Add mutations using VMD.
 	vmd -dispdev text -e solvate_ionize.tcl >> solvate_ionize.log # Use VMD to add solvent and ions.
 
-	cp view.vmd $sim_dir # Copy view.vmd into output directory.
+	cp view_traj.vmd $sim_dir # Copy view_traj.vmd into output directory.
 	mv solvate_ionize.log combine_nfp5_cfp5.log nfp5_cfp5* cfp5_updated_xyz.pdb ionized* ${element}* $sim_dir # Organize files into the output directory.
 
 	cp ../run_simulation/* $sim_dir # Copy all files in directory run_simulation into output directory.
