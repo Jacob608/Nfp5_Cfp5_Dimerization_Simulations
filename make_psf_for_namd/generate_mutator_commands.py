@@ -6,7 +6,7 @@
 
 import pandas as pd
 print(pd.__version__)
-df = pd.read_excel('library_44_nhalfmfps.xlsx', sheet_name='For Simulations')
+df = pd.read_excel('initial_library_max_distance_44.xlsx', sheet_name='For Simulations')
 
 wt_seq = 'SEEYKGGYYPGNTYHYHSGGSYHGSGYHGGYKGKYY' # Single letter amino acid code for wild type Nfp5 sequence.
 
@@ -33,10 +33,12 @@ amino_acid_codes = {'A':'ALA',
 
 
 names_file = open(f"names.txt", "w")
+submit_all = open(f"submit_all.sh", "w")
 for ind in df.index:
     mut_seq = df['Sequence'][ind]
     name = df['Name'][ind]
     names_file.write(f"{name}\n")
+    submit_all.write(f"cd {name}\nsbatch run_namd.sh\ncd ..\n") ### Write lines to submit_all.sh
     mut_file = open(f"{name}_mutator_commands.txt", "w")
     mut_file.write(f"# Mutant sequence: {mut_seq}")
     for a in range(len(wt_seq)):
@@ -49,6 +51,7 @@ for ind in df.index:
     mut_file.write('exit')
     mut_file.close()
 names_file.close()
+submit_all.close()
 
 
 

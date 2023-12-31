@@ -25,7 +25,7 @@ binaryrestart           yes 					# Activates the use of binary restart files. Wh
 restartfreq             500 					# The number of time steps between the generation of restart files.
 restartname 		restart
 
-set thermOut 		1000
+set thermOut 		25000
 outputEnergies 		$thermOut
 outputPressure 		$thermOut
 
@@ -101,6 +101,6 @@ minimize            100          ;				# Performs potential energy minimization f
 reinitvels          $temperature  ;				# since minimization zeros velocities
 
 #run 1000; 							# run simulation for 1000 fs
-run 150000000; 							# run simulation for 15000000 fs (150 ns)
+run 100000000; 							# run simulation for 10000000 fs (100 ns)
 
 # END
