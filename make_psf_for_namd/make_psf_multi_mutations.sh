@@ -4,7 +4,7 @@ module load python/anaconda3.6
 module load vmd
 
 #----- Make a directory into which files will be organized.
-out_dir=mutation_simulations
+out_dir=mutation_simulations_NBFIX
 if [ ! -d "$out_dir" ];then
 	mkdir $out_dir
 else # If a directory by the name $out_dir already exists, exit with message.
