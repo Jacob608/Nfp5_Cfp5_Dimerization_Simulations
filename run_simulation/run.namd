@@ -1,3 +1,8 @@
+# See this link for restart information: https://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2006-2007/3087.html
+set previous 		none ;
+set current 		0 ;
+set output 		output ; # Set variable output as 'output'
+
 # ---------input----
 
 coordinates             ionized.pdb 				# Required keyword
@@ -15,15 +20,15 @@ paratypecharmm          on 					# Indicates that parameter files is in CHARMM fo
 
 set output              output ; # Set variable output as 'output.'
 
-outputname              $output 				# Required keyword indicating output filename
-dcdfile                 ${output}.dcd 				# The binary DCD position coordinate trajectory filename
-xstFile                 ${output}.xst 				# The eXtended System Trajectory file contains a record of periodic cell parameters and extended system variables during the simulation
+outputname              ${output}_{current} 				# Required keyword indicating output filename
+dcdfile                 ${output}_{current}.dcd 				# The binary DCD position coordinate trajectory filename
+xstFile                 ${output}_{current}.xst 				# The eXtended System Trajectory file contains a record of periodic cell parameters and extended system variables during the simulation
 dcdfreq                 25000 					# The number of time steps between the writing of position coordinates to the trajectory file.
 xstFreq                 25000 					# Controls how often the extended system configuration will be appended to the XST file.
 binaryoutput            yes 					# Activates the use of binary output files. When yes, the final output files will be written in binary rather than PDB format.
 binaryrestart           yes 					# Activates the use of binary restart files. When yes, restart files will be written in binary rather than PDB format.
 restartfreq             500 					# The number of time steps between the generation of restart files.
-restartname 		restart
+restartname 		restart_$current
 
 set thermOut 		25000
 outputEnergies 		$thermOut
@@ -100,7 +105,6 @@ minimize            100          ;				# Performs potential energy minimization f
 
 reinitvels          $temperature  ;				# since minimization zeros velocities
 
-#run 1000; 							# run simulation for 1000 fs
 run 100000000; 							# run simulation for 10000000 fs (100 ns)
 
 # END
