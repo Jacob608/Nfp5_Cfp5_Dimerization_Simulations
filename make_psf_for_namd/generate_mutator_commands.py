@@ -6,7 +6,7 @@
 
 import pandas as pd
 print(pd.__version__)
-df = pd.read_excel('initial_library_max_distance_44.xlsx', sheet_name='For Simulations')
+df = pd.read_excel('libraryfeb24_max_distance.xlsx', sheet_name='For Simulations')
 # df = pd.read_excel('test_library.xlsx', sheet_name='For Simulations')
 wt_seq = 'SEEYKGGYYPGNTYHYHSGGSYHGSGYHGGYKGKYY' # Single letter amino acid code for wild type Nfp5 sequence.
 
