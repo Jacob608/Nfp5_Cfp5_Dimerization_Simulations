@@ -1,7 +1,7 @@
 # See this link for restart information: https://www.ks.uiuc.edu/Research/namd/mailing_list/namd-l.2006-2007/3087.html
-set previous 		none ;
-set current 		run0 ;
-set output 		output ; # Set variable output as 'output'
+set previous 		PREVIOUS_RUN ;
+set current		CURRENT_RUN ;
+set output              output ; # Set variable output as 'output.'
 
 # ---------input----
 
@@ -13,12 +13,13 @@ parameters 		ARG.prm
 parameters 		toppar_water_ions.str
 parameters 		par_all36_cgenff_NBFIX.prm
 paratypecharmm          on 					# Indicates that parameter files is in CHARMM format NOT X-PLOR format
-#bincoordinates         minimized.restart.coor 			# Binary restart file containing initial position coordinate data
-#binvelocities         	minimized.restart.vel 			# Binary file containing initial velocities for all atoms in the simulation
+bincoordinates         	restart_${previous}.coor 			# Binary restart file containing initial position coordinate data
+binvelocities          	restart_${previous}.vel 		# Binary file containing initial velocities for all atoms in the simulation
+extendedSystem 	       	restart_${previous}.xsc 		# Read in the xsc restart file.
 
 # ---------output-----
 
-outputname              ${output}_${current} 				# Required keyword indicating output filename
+outputname              ${output}_${current}				# Required keyword indicating output filename
 dcdfile                 ${output}_${current}.dcd 				# The binary DCD position coordinate trajectory filename
 xstFile                 ${output}_${current}.xst 				# The eXtended System Trajectory file contains a record of periodic cell parameters and extended system variables during the simulation
 dcdfreq                 25000 					# The number of time steps between the writing of position coordinates to the trajectory file.
@@ -48,7 +49,7 @@ pairlistdist            11 					# highly recommended to be specified with a valu
 # -------Multiple time stepping---
 nonbondedFreq 		2 					# Specifies how often short-range non bonded interactions should be calculated.
 fullElectFrequency 	4 					# The number of time steps between each full electrostatics evaluation.
-firsttimestep           0 					# Number of the first timestep.
+firsttimestep           FIRST_TIMESTEP				# Number of the first timestep.
 timestep                1 					# Timestep size to use when integrating each step of the simulation.
 stepspercycle   	4 					# Number of time steps in each cycle, which represents the number of time steps between atom reassignments.
 
@@ -57,7 +58,7 @@ useSettle 		on 					# Use the non-iterative SETTLE algorithm rather than SHAKE.
 
 # ------Temperature control---
 set temperature         300 		;			# Set variable temperature to 300.
-temperature             $temperature ;  				# Set initial temperature
+#temperature             $temperature ;  				# Set initial temperature
 
 # ------Langevin Dynamics-----
 langevin                on;            				# Specifies whether or not Langevin dynamics are active.
@@ -89,20 +90,23 @@ LangevinPistonTemp  	$temperature 				# Barostat noise temperature for Langevin 
 # ===============================================
 
 # Periodic Boundary conditions
--pbc commands here-
+cellBasisVector1 83.05799999999999 0 0 
+cellBasisVector2 0 90.105 0 
+cellBasisVector3 0 0 80.589 
+cellOrigin 26.296999999999997 43.2245 -61.1045 
 
 wrapWater           on              ;				# wrap water to central cell
 wrapAll             on              ;				# wrap other molecules too
 wrapNearest         off
 
 # ---------Scripting
-minimize            100          ;				# Performs potential energy minimization for specified number of timesteps.
+#minimize            100          ;				# Performs potential energy minimization for specified number of timesteps.
 #minTinyStep 	    1.0e-6 					# 1.0e-6 is the default value for minTinyStep.
 #minBabyStep 	    1.0e-2 					# 1.0e-2 is the default value for minBabyStep.
 #minLineGoal 	    1.0e-4 					# 1.0e-4 is the default value for minLineGoal.
 
-reinitvels          $temperature  ;				# since minimization zeros velocities
+#reinitvels          $temperature  ;				# since minimization zeros velocities
 
-run 100000000; 							# run simulation for 10000000 fs (100 ns)
+run STEPS_PER_SIM; 							# run simulation for STEPS_PER_SIM fs (2 ns)
 
 # END
