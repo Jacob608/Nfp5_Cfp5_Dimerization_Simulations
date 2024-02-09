@@ -89,8 +89,8 @@ LangevinPistonTemp  	$temperature 				# Barostat noise temperature for Langevin 
 
 # ===============================================
 
-# Periodic Boundary conditions
-cellBasisVector1 83.05799999999999 0 0 
+# Periodic Boundary conditions. IGNORED when restarting with eXtended System Configuration file (.xsc).
+cellBasisVector1 83.05799999999999 0 0
 cellBasisVector2 0 90.105 0 
 cellBasisVector3 0 0 80.589 
 cellOrigin 26.296999999999997 43.2245 -61.1045 
