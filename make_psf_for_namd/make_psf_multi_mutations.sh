@@ -60,3 +60,5 @@ for element in "${names[@]}"; do
 	sed -i "s/jobname/$element/g" run_namd.sh # Change job name to unique identifier in run_namd.sh
 	cd ../..
 done
+
+cp restart_all_short_queue.sh template_run_namd.namd HW_auto_sub.py $out_dir
