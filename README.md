@@ -38,6 +38,7 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - **libraryfeb24_max_distance.xlsx** - An excel spreadsheet containing a list of mutated sequencse of nfp5 paired with a unique identifier for that simulation.
 - **fga_fp5.yml** - A conda yml file that can be used to make a conda environment compatible with the **make_psf_multi_mutations.sh**.
 - **top_all36_prot_NBFIX.rtf** - A topology file for all atomistic molecular dynamics representations of proteins with atom types updated for compatibility with the nonbonded fix for cation-pi interactions introduced in [Liu et al. JCTC 2021](https://doi.org/10.1021/acs.jctc.1c00219). This file was originally downloaded from the [MacKerell Lab homepage](https://mackerell.umaryland.edu/charmm_ff.shtml#charmm) before being updated manually to include topology changes to tyrosine and arginine for the nonbonded fix.
+- **mutate.tcl** - A tcl script which to which VMD Mutator Plugin commands are appended by **generate_mutator_commands.py**.
 
 ### In the subdirectory **run_simulation**
 - **maxmin_new.tcl** - A tcl script written by L. Martinez to get the maximum and minimum coordinates in the x, y, and z directions of a pdb file. Since NAMD requires an initial approximation for the edge of initial periodic boundaries of a simulation, these coordinates are then used to print 'cellBasisVector' commands which are copied and pasted into the file **run.namd**. For additional usage and implementation of **maxmin_new.tcl**, see [this YouTube video](https://www.youtube.com/watch?v=IArpsQsZ95U).
@@ -57,5 +58,7 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 (https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
 
 1. Ensure all software versions being used are correct.
+
+1.  
 
 ## File Descriptions
