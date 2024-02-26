@@ -24,6 +24,11 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - VMD: Visual Molecular Dynamics is a molecular visualization program for displaying, animating, and analyzing large biomolecular systems using 3-D graphics and built-in scripting. VMD supports computers running MacOS X, Unix, or Windows, is distributed free of charge, and includes source code. https://www.ks.uiuc.edu/Research/vmd/
 - NAMD: NAMD is a parallel, object-oriented molecular dynamics code designed for high-performance simulation of large biomolecular systems. https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD
 
-## Procedure
+## Instructions:
+
+1. Create a conda environment from **fga_fp5.yml** in a location of your choosing using instructions found in [conda documentation]
+(https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
+
+1. Ensure all software versions being used are correct.
 
 ## File Descriptions
