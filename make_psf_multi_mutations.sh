@@ -20,7 +20,7 @@ vmd -dispdev text -e combine_nfp5_cfp5.tcl >> combine_nfp5_cfp5.log # Use VMD to
 vmd -dispdev text -e solvate_ionize.tcl >> solvate_ionize.log # Use VMD to add solvent and ions.
 cp view_traj.vmd $out_dir/no_mutation # Copy view_traj.vmd into output directory.
 mv nfp5_cfp5* ionized* solvate_ionize.log combine_nfp5_cfp5.log $out_dir/no_mutation # Organize files into the output directory.
-cp ../run_simulation/* $out_dir/no_mutation
+cp run_simulation/* $out_dir/no_mutation
 cd $out_dir/no_mutation
 tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
 pbc_namd_commands=$(cat pbc_namd_commands.txt) # String output from generate_mutator_commands.py
@@ -28,7 +28,7 @@ sed -i "s/-pbc commands here-/$pbc_namd_commands/g" run.namd # Add cellBasisVect
 cd ../..
 
 #----- Make simulations with one protein mutated.
-source activate /projects/p31412/Mfp_Brushes/envs/fga_mfp # Activate a conda environment with Python version 3.6.0
+source activate /home/jjg9482/anaconda3/envs/fga_fp5 # Activate a conda environment with Python version 3.6.0
 python generate_mutator_commands.py # Run generate_mutator_commands.py
 
 # Read the list of names corresponding to each sequence line by line and add each line to the array.
@@ -52,7 +52,7 @@ for element in "${names[@]}"; do
 	cp view_traj.vmd $sim_dir # Copy view_traj.vmd into output directory.
 	mv solvate_ionize.log combine_nfp5_cfp5.log nfp5_cfp5* cfp5_updated_xyz.pdb ionized* ${element}* $sim_dir # Organize files into the output directory.
 
-	cp ../run_simulation/* $sim_dir # Copy all files in directory run_simulation into output directory.
+	cp run_simulation/* $sim_dir # Copy all files in directory run_simulation into output directory.
 	cd $sim_dir
 	tclsh maxmin_new.tcl # Run maxmin_new.tcl to get periodic boundary conditions for NAMD simulation
 	pbc_namd_commands=$(cat pbc_namd_commands.txt) # String output from generate_mutator_commands.py
@@ -60,5 +60,3 @@ for element in "${names[@]}"; do
 	sed -i "s/jobname/$element/g" run_namd.sh # Change job name to unique identifier in run_namd.sh
 	cd ../..
 done
-
-cp restart_all_short_queue.sh template_run_namd.namd HW_auto_sub.py $out_dir
