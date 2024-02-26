@@ -18,6 +18,7 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - VMD version 1.9.3
 - GNU Bash, version 4.2.46(2)-release (x86_64-redhat-linux-gnu)
 - NAMD 3.0b3 Linux-x86_64-multicore
+- TCL version 8.6
 
 ## Software Setup
 
@@ -54,11 +55,10 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 
 ## Instructions:
 
-1. Create a conda environment from **fga_fp5.yml** in a location of your choosing using instructions found in [conda documentation]
-(https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
+1. Create a conda environment from **fga_fp5.yml** in a location of your choosing using instructions found in [conda documentation](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
 
 1. Ensure all software versions being used are correct.
 
-1.  
+1. The file **make_psf_multi_mutations.sh** contains all the bash commands necessary to build all mutated simulations specified in **libraryfeb24_max_distance.xlsx**. Change the conda command 'source activate /home/jjg9482/anaconda3/envs/fga_mfp' to specify the path to your newly created conda environment. Before running this script to generate the simulations, change the sbatch submission script **run_simulation/run_namd.sh** to reflect the location of your NAMD software. Run this script using the command "bash **make_psf_multi_mutations.sh**.
 
-## File Descriptions
+1. Run each individual simulation by navigating into each directory in **mutation_simulations_NBFIX**, which are named for each mutation's unique identifying code. Each simulation can then be run by simply executing NAMD with the command found in that directory's instance of **run_namd.sh**.
