@@ -103,6 +103,6 @@ minimize            100          ;				# Performs potential energy minimization f
 
 reinitvels          $temperature  ;				# since minimization zeros velocities
 
-run 100000000; 							# run simulation for 10000000 fs (100 ns)
+run 100000000; 							# run simulation for 100000000 fs (100 ns)
 
 # END
