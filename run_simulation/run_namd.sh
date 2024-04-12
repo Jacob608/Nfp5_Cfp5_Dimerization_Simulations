@@ -3,7 +3,7 @@
 #SBATCH -A p31412
 #SBATCH -p long    ## partition
 #SBATCH -N 1  ## number of nodes
-#SBATCH --ntasks-per-node=52  ## number of cores
+#SBATCH --ntasks-per-node=64  ## number of cores
 #SBATCH -t 100:00:00
 
 #https://researchcomputing.princeton.edu/support/knowledge-base/namd
