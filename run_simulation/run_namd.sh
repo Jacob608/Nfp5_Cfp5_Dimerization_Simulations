@@ -4,7 +4,9 @@
 #SBATCH -p long    ## partition
 #SBATCH -N 1  ## number of nodes
 #SBATCH --ntasks-per-node=64  ## number of cores
-#SBATCH -t 100:00:00
+#SBATCH -t 168:00:00
+#SBATCH --output=R-%x.%j.out
+#SBATCH --error=R-%x.%j.err
 
 #https://researchcomputing.princeton.edu/support/knowledge-base/namd
 module purge all
