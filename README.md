@@ -70,7 +70,7 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 
 ### Analyze Simulations
 
-1. Copy **get_NAMDenergy_all_simulations.sh** and **get_NAMDenergy.vmd** into the directory **mutation_simulations_NBFIX**.
+1. Copy **get_NAMDenergy_all_simulations.sh**, **get_NAMDenergy.vmd**, and **organize_NAMD_energy_files.sh** into the directory **mutation_simulations_NBFIX**.
 
 2. Run the bash script **get_NAMDenergy_all_simulations.sh** by submitting as a job to a slurm job scheduler with the sbatch command or directly from the command line using the bash command.
 
