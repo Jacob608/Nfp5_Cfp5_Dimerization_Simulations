@@ -43,6 +43,8 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - **get_NAMDenergy.vmd** - This tcl script to be run in VMD loads all .dcd files output from an individual simulation, calculates the NAMD energy between chains U and V, and stores that information in a file called **namdenergy.csv**.
 - **get_NAMDenergy_all_simulations.sh** - This bash script copies **get_NAMDenergy.vmd** into each simulation directory and runs it.
 - **organize_NAMD_energy_files.sh** - This bash script copies all output **namdenergy.csv** files from each simulatino into a single directory called **all_namd_energies**. Each **namdenergy.csv** is renamed with the name of its corresponding simulation appended (i.e. **namdenergy_simulationname.csv**).
+- **restart_all_short_queue.sh** -
+- **auto_submit_restart_short_queue.py** -
 
 ### In the subdirectory **run_simulation**
 - **maxmin_new.tcl** - A tcl script written by L. Martinez to get the maximum and minimum coordinates in the x, y, and z directions of a pdb file. Since NAMD requires an initial approximation for the edge of initial periodic boundaries of a simulation, these coordinates are then used to print 'cellBasisVector' commands which are copied and pasted into the file **run.namd**. For additional usage and implementation of **maxmin_new.tcl**, see [this YouTube video](https://www.youtube.com/watch?v=IArpsQsZ95U).
