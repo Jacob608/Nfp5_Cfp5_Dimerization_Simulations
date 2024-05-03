@@ -6,11 +6,14 @@
 #SBATCH --ntasks-per-node=1  ## number of cores
 #SBATCH -t 4:00:00
 
+# Load necessary modules.
 module load vmd
+
+# Read each simulation name from names.txt into the list names.
 names=()
 while IFS= read -r line; do
 	names+=("$line")
-done < "names_successful_sims_only.txt"
+done < "names.txt"
 
 for element in "${names[@]}"; do
 	cd $element
