@@ -9,12 +9,13 @@
 # Load necessary modules.
 module load vmd
 
-# Read each simulation name from names.txt into the list names.
+# Load all the simulation names stored in file names.txt into the list names.
 names=()
 while IFS= read -r line; do
 	names+=("$line")
 done < "names.txt"
 
+# For each element in list names, change
 for element in "${names[@]}"; do
 	cd $element
 	cp namdenergy.csv namdenergy_$element.csv
