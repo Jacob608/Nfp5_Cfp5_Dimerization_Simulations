@@ -6,8 +6,8 @@ done < "names.txt"
 
 for element in "${names[@]}"; do
 	cd $element
-	cp ../HW_auto_sub.py .
-	sed -i "s/simulation_name/${element}/" HW_auto_sub.py
-	python HW_auto_sub.py
+	cp ../auto_submit_restart_short_queue.py .
+	sed -i "s/simulation_name/${element}/" auto_submit_restart_short_queue.py
+	python auto_submit_restart_short_queue.py
 	cd ..
 done
