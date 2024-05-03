@@ -15,7 +15,7 @@ while IFS= read -r line; do
 	names+=("$line")
 done < "names.txt"
 
-# For each element in list names, change
+# For each element in names, navigate into that directory, copy namdenergy.csv as namdenergy_$element.csv, and move namdenergy_$element.csv in directory all_namd_energies.
 for element in "${names[@]}"; do
 	cd $element
 	cp namdenergy.csv namdenergy_$element.csv
