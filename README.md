@@ -40,6 +40,9 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - **fga_fp5.yml** - A conda yml file that can be used to make a conda environment compatible with the **make_psf_multi_mutations.sh**.
 - **top_all36_prot_NBFIX.rtf** - A topology file for all atomistic molecular dynamics representations of proteins with atom types updated for compatibility with the nonbonded fix for cation-pi interactions introduced in [Liu et al. JCTC 2021](https://doi.org/10.1021/acs.jctc.1c00219). This file was originally downloaded from the [MacKerell Lab homepage](https://mackerell.umaryland.edu/charmm_ff.shtml#charmm) before being updated manually to include topology changes to tyrosine and arginine for the nonbonded fix.
 - **mutate.tcl** - A tcl script acting as a starting template for running the VMD Mutator Plugin in VMD. Commands compatible with the VMD Mutator Plugin are appended by **generate_mutator_commands.py** for each simulation.
+- **get_NAMDenergy.vmd** -
+- **get_NAMDenergy_all_simulations.sh** -
+- **organize_NAMD_energy_files.sh** -
 
 ### In the subdirectory **run_simulation**
 - **maxmin_new.tcl** - A tcl script written by L. Martinez to get the maximum and minimum coordinates in the x, y, and z directions of a pdb file. Since NAMD requires an initial approximation for the edge of initial periodic boundaries of a simulation, these coordinates are then used to print 'cellBasisVector' commands which are copied and pasted into the file **run.namd**. For additional usage and implementation of **maxmin_new.tcl**, see [this YouTube video](https://www.youtube.com/watch?v=IArpsQsZ95U).
@@ -55,6 +58,8 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 
 ## Instructions:
 
+### Generate and Run Simulations
+
 1. Create a conda environment from **fga_fp5.yml** in a location of your choosing using instructions found in [conda documentation](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#creating-an-environment-from-an-environment-yml-file).
 
 1. Ensure all software versions being used are correct.
@@ -62,3 +67,7 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 1. The file **make_psf_multi_mutations.sh** contains all the bash commands necessary to build all mutated simulations specified in **libraryfeb24_max_distance.xlsx**. Change the conda command 'source activate /home/jjg9482/anaconda3/envs/fga_mfp' to specify the path to your newly created conda environment. Change the sbatch submission script **run_simulation/run_namd.sh** to reflect the location of your NAMD software. If you would like to use a different excel spreadsheet with your own sequences, change the command "df = pd.read_excel('libraryfeb24_max_distance.xlsx', sheet_name='For Simulations')" corresponding to the name of your excel spreadsheet in .xlsx format. Make sure that your sequence names and the sequences themselves are formatted the same as they are in the file **libraryfeb24_max_distance.xlsx**. Run this script using the command "bash **make_psf_multi_mutations.sh** > make_psf_multi_mutations_output.txt".
 
 1. The files for running each individual simulation are sorted into subdirectories within the directory **mutation_simulations_NBFIX**. Each subdirectory is named for each mutation's unique identifying code. Each simulation can be run by simply executing NAMD with the command found in that directory's instance of **run_namd.sh**.
+
+### Analyze Simulations
+
+1. 
