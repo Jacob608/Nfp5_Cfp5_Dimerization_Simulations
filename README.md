@@ -46,7 +46,7 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - **restart_all_short_queue.sh** - This bash script copies **auto_submit_restart_short_queue.py** into each simulation directory and runs it.
 - **auto_submit_restart_short_queue.py** - This python script sets up a chain of short queue simulations in the current directory and submits them with the sbatch command. Each job is submitted with a dependency requiring that the previous job complete before it starts.
 - **template_run_namd.namd** - A template NAMD simulation script for simulations submitted using the short queue restart chain.
-- **sort_namd_energy_into_single_csv.ipynb** - A Jupyter Notebook which allows you to summarize all total nonbonded energy calculations from the NAMD energy analysis in a single place and consolidate the data into one file.
+- **sort_namd_energy_into_single_csv.ipynb** - A Jupyter Notebook which allows you to summarize all total nonbonded energy calculations from the NAMD energy analysis in a single place and consolidate the data into excel workbooks.
 
 ### In the subdirectory **run_simulation**
 - **maxmin_new.tcl** - A tcl script written by L. Martinez to get the maximum and minimum coordinates in the x, y, and z directions of a pdb file. Since NAMD requires an initial approximation for the edge of initial periodic boundaries of a simulation, these coordinates are then used to print 'cellBasisVector' commands which are copied and pasted into the file **run.namd**. For additional usage and implementation of **maxmin_new.tcl**, see [this YouTube video](https://www.youtube.com/watch?v=IArpsQsZ95U).
