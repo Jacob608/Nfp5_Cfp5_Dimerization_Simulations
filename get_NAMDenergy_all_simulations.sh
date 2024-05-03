@@ -10,7 +10,7 @@ module load vmd
 names=()
 while IFS= read -r line; do
 	names+=("$line")
-done < "names_successful_sims_only.txt"
+done < "names.txt"
 
 for element in "${names[@]}"; do
 	cd $element
