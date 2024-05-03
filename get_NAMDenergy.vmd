@@ -44,8 +44,8 @@ set par5 "par_all36_cgenff_NBFIX.prm"; # A parameter file used by the namdenergy
 # Set some variables to be passed to the namdenergy command.
 set namdenergy_outputfile "namdenergy.csv"; # Name for namdenergy output file.
 set skipframes 9; # Set the number of frames to be skipped between energy calculations.
-
+set extsysfile "restart_run0.xsc"; # Set the name of the extended system file.
 # Run namdenergy.
-namdenergy -sel $sel1 $sel2 -ofile $namdenergy_outputfile -extsys output_run1.xsc -exe $namdexe -switch 9 -cutoff 10 -skip $skipframes -stride $dcdstride -par $par1 -par $par2 -par $par3 -par $par4 -par $par5 -vdw -nonb -elec
+namdenergy -sel $sel1 $sel2 -ofile $namdenergy_outputfile -extsys $extsysfile -exe $namdexe -switch 9 -cutoff 10 -skip $skipframes -stride $dcdstride -par $par1 -par $par2 -par $par3 -par $par4 -par $par5 -vdw -nonb -elec
 
 exit
