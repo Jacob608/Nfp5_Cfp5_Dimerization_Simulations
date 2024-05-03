@@ -40,9 +40,9 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 - **fga_fp5.yml** - A conda yml file that can be used to make a conda environment compatible with the **make_psf_multi_mutations.sh**.
 - **top_all36_prot_NBFIX.rtf** - A topology file for all atomistic molecular dynamics representations of proteins with atom types updated for compatibility with the nonbonded fix for cation-pi interactions introduced in [Liu et al. JCTC 2021](https://doi.org/10.1021/acs.jctc.1c00219). This file was originally downloaded from the [MacKerell Lab homepage](https://mackerell.umaryland.edu/charmm_ff.shtml#charmm) before being updated manually to include topology changes to tyrosine and arginine for the nonbonded fix.
 - **mutate.tcl** - A tcl script acting as a starting template for running the VMD Mutator Plugin in VMD. Commands compatible with the VMD Mutator Plugin are appended by **generate_mutator_commands.py** for each simulation.
-- **get_NAMDenergy.vmd** -
-- **get_NAMDenergy_all_simulations.sh** -
-- **organize_NAMD_energy_files.sh** -
+- **get_NAMDenergy.vmd** - This tcl script to be run in VMD loads all .dcd files output from an individual simulation, calculates the NAMD energy between chains U and V, and stores that information in a file called **namdenergy.csv**.
+- **get_NAMDenergy_all_simulations.sh** - This bash script copies **get_NAMDenergy.vmd** into each simulation directory and runs it.
+- **organize_NAMD_energy_files.sh** - This bash script copies all output **namdenergy.csv** files from each simulatino into a single directory called **all_namd_energies**. Each **namdenergy.csv** is renamed with the name of its corresponding simulation appended (i.e. **namdenergy_simulationname.csv**).
 
 ### In the subdirectory **run_simulation**
 - **maxmin_new.tcl** - A tcl script written by L. Martinez to get the maximum and minimum coordinates in the x, y, and z directions of a pdb file. Since NAMD requires an initial approximation for the edge of initial periodic boundaries of a simulation, these coordinates are then used to print 'cellBasisVector' commands which are copied and pasted into the file **run.namd**. For additional usage and implementation of **maxmin_new.tcl**, see [this YouTube video](https://www.youtube.com/watch?v=IArpsQsZ95U).
@@ -73,3 +73,5 @@ This workflow was designed to set up a series of all atomistic molecular dynamic
 1. Copy **get_NAMDenergy_all_simulations.sh** and **get_NAMDenergy.vmd** into the directory **mutation_simulations_NBFIX**.
 
 2. Run the bash script **get_NAMDenergy_all_simulations.sh** by submitting as a job to a slurm job scheduler with the sbatch command or directly from the command line using the bash command.
+
+3. Run the bash script **organize_NAMD_energy_files.sh** to organize all **namdenergy.csv** files into the same directory labeled based on the name of their simulation. 
